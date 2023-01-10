@@ -15,107 +15,114 @@ $request = \CodeIgniter\Services::request();
     </div>
     <!-- End Page Header -->
 
-
-<div class="mb-3">
-    <a href="<?php echo site_url(route_to('staff_tickets'));?>" class="btn <?php echo ($page_type == 'main' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.tickets.active');?> (<?php echo count_status('active');?>)</a>
-    <a href="<?php echo site_url(route_to('staff_tickets_overdue'));?>" class="btn <?php echo ($page_type == 'overdue' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.overdue');?> (<?php echo count_status('overdue');?>)</a>
-    <a href="<?php echo site_url(route_to('staff_tickets_answered'));?>" class="btn <?php echo ($page_type == 'answered' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.answered');?> (<?php echo count_status('answered');?>)</a>
-    <a href="<?php echo site_url(route_to('staff_tickets_closed'));?>" class="btn <?php echo ($page_type == 'closed' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.closed');?> (<?php echo count_status('closed');?>)</a>
-</div>
-
     <div class="card mb-3">
         <div class="card-header border-bottom">
-            <h6 class="mb-0"><?php echo lang('Admin.form.search');?></h6>
-        </div>
-        <div class="card-body">
-
-            <?php echo form_open(route_to('staff_tickets_search'),['method'=>'get']);?>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><?php echo lang('Admin.form.keyword');?></label>
-                        <?php
-                        echo form_input([
-                            'name' => 'keyword',
-                            'value' => $request->getGet('keyword'),
-                            'class' => 'form-control'
-                        ]);
-                        ?>
-                    </div>
+                <div class="col">
+                    <h6 class="mb-0">
+                        <a data-toggle="collapse" href="#collapseSearch" role="button" aria-expanded="false" aria-controls="collapseSearch">
+                            <?php echo lang('Admin.form.search');?>
+                        </a>
+                    </h6>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><?php echo lang('Admin.form.dateOpened');?></label>
-                        <?php
-                        echo form_input([
-                            'name' => 'date_created',
-                            'value' => $request->getGet('date_created'),
-                            'class' => 'form-control datepicker'
-                        ]);
-                        ?>
-                    </div>
+                <div class="col d-flex flex-gap justify-content-end" style="gap: 6px;">
+                    <a href="<?php echo site_url(route_to('staff_tickets'));?>" class="btn <?php echo ($page_type == 'main' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.tickets.active');?> (<?php echo count_status('active');?>)</a>
+                    <a href="<?php echo site_url(route_to('staff_tickets_overdue'));?>" class="btn <?php echo ($page_type == 'overdue' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.overdue');?> (<?php echo count_status('overdue');?>)</a>
+                    <a href="<?php echo site_url(route_to('staff_tickets_answered'));?>" class="btn <?php echo ($page_type == 'answered' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.answered');?> (<?php echo count_status('answered');?>)</a>
+                    <a href="<?php echo site_url(route_to('staff_tickets_closed'));?>" class="btn <?php echo ($page_type == 'closed' ? 'btn-primary' : 'btn-outline-primary');?>"><?php echo lang('Admin.form.closed');?> (<?php echo count_status('closed');?>)</a>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><?php echo lang('Admin.form.lastUpdate');?></label>
-                        <?php
-                        echo form_input([
-                            'name' => 'last_update',
-                            'value' => $request->getGet('last_update'),
-                            'class' => 'form-control datepicker'
-                        ]);
-                        ?>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><?php echo lang('Admin.form.department');?></label>
-                        <select name="department" class="form-control custom-select">
-                            <option value="">-------------------</option>
+            </div>
+        </div>
+        <div class="collapse" id="collapseSearch">
+            <div class="card-body">
+                <?php echo form_open(route_to('staff_tickets_search'),['method'=>'get']);?>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><?php echo lang('Admin.form.keyword');?></label>
                             <?php
-                            if($department_list = $departments){
-                                foreach ($department_list as $item){
-                                    if($request->getGet('department') == $item->id){
-                                        echo '<option value="'.$item->id.'" selected>'.$item->name.'</option>';
-                                    }else{
-                                        echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                            echo form_input([
+                                'name' => 'keyword',
+                                'value' => $request->getGet('keyword'),
+                                'class' => 'form-control'
+                            ]);
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><?php echo lang('Admin.form.dateOpened');?></label>
+                            <?php
+                            echo form_input([
+                                'name' => 'date_created',
+                                'value' => $request->getGet('date_created'),
+                                'class' => 'form-control datepicker'
+                            ]);
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><?php echo lang('Admin.form.lastUpdate');?></label>
+                            <?php
+                            echo form_input([
+                                'name' => 'last_update',
+                                'value' => $request->getGet('last_update'),
+                                'class' => 'form-control datepicker'
+                            ]);
+                            ?>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><?php echo lang('Admin.form.department');?></label>
+                            <select name="department" class="form-control custom-select">
+                                <option value="">-------------------</option>
+                                <?php
+                                if($department_list = $departments){
+                                    foreach ($department_list as $item){
+                                        if($request->getGet('department') == $item->id){
+                                            echo '<option value="'.$item->id.'" selected>'.$item->name.'</option>';
+                                        }else{
+                                            echo '<option value="'.$item->id.'">'.$item->name.'</option>';
+                                        }
                                     }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label><?php echo lang('Admin.form.status');?></label>
-                        <select name="status" class="form-control custom-select">
-                            <option value="">-------------------</option>
-                            <?php
-                            foreach ($statuses as $k => $v){
-                                if($request->getGet('status') == $k){
-                                    echo '<option value="'.$k.'" selected>'.lang('Admin.form.'.$v).'</option>';
-                                }else{
-                                    echo '<option value="'.$k.'">'.lang('Admin.form.'.$v).'</option>';
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><?php echo lang('Admin.form.status');?></label>
+                            <select name="status" class="form-control custom-select">
+                                <option value="">-------------------</option>
+                                <?php
+                                foreach ($statuses as $k => $v){
+                                    if($request->getGet('status') == $k){
+                                        echo '<option value="'.$k.'" selected>'.lang('Admin.form.'.$v).'</option>';
+                                    }else{
+                                        echo '<option value="'.$k.'">'.lang('Admin.form.'.$v).'</option>';
+                                    }
                                 }
-                            }
-                            ?>
-                        </select>
+                                ?>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="overdueTickets" name="overdue" <?php echo ($request->getGet('overdue') == '1' ? 'checked' : '');?>
-                    <label class="form-check-label" for="overdueTickets">
-                        <?php echo lang('Admin.tickets.showOverdueOnly');?>
-                    </label>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="overdueTickets" name="overdue" <?php echo ($request->getGet('overdue') == '1' ? 'checked' : '');?>
+                        <label class="form-check-label" for="overdueTickets">
+                            <?php echo lang('Admin.tickets.showOverdueOnly');?>
+                        </label>
+                    </div>
                 </div>
+                <div class="form-group">
+                    <button class="btn btn-primary"><i class="fa fa-search"></i> <?php echo lang('Admin.form.search');?></button>
+                </div>
+                <?php echo form_close();?>
             </div>
-            <div class="form-group">
-                <button class="btn btn-primary"><i class="fa fa-search"></i> <?php echo lang('Admin.form.search');?></button>
-            </div>
-            <?php echo form_close();?>
         </div>
     </div>
     <!-- chart row starts here -->
